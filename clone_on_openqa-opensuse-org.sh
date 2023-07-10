@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ "$#" -ne 3 ]; then
+if [ "$#" -lt 3 ]; then
   echo "Usage: $0 <git_repo> <branch> <parent_id> [extra arguments...]"
   echo "Missing arguments:"
   echo "  <git_repo>   : Git repository URL"
