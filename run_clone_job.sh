@@ -16,12 +16,23 @@ fi
 make build &>/dev/null
 runtime=$(./runtime.sh)
 
+compose_command=("$runtime" run -ti --rm openqa-cli /usr/share/openqa/script/clone_job.pl)
+
+if [[ $1 =~ ^- ]] ; then
+  exec "${compose_command[@]}" "$@"
+fi
+
 source="$1"
 dest="$2"
 parent_id="$3"
 git_repo="$4"
 branch="$5"
 shift 5
+
+extra_opts=()
+for opt; do
+  [[ $opt =~ ^- ]] && extra_opts+=("$opt")
+done
 
 # Remove url from parent_id
 if ! [[ $parent_id =~ ^[0-9]+$ ]]; then
@@ -32,9 +43,12 @@ fi
 # Extract the user from the git repository URL
 user=$(echo "$git_repo" | awk -F'[:/]' '{print $(NF-1)}')
 
-compose_command=("$runtime" run -ti --rm openqa-cli /usr/share/openqa/script/clone_job.pl)
 compose_command+=(--host "$dest" --from "$source")
 compose_command+=(--skip-chained-deps --skip-download)
+for opt in "${extra_opts[@]}"; do
+  compose_command+=("$opt")
+done
+
 compose_command+=("$parent_id")
 compose_command+=(CASEDIR="$git_repo#$branch")
 compose_command+=(TEST="${user}_${branch}")
@@ -47,4 +61,4 @@ done
 full_command=$(IFS=' ' && echo "${compose_command[*]}")
 echo "Full command: $full_command"
 
-"${compose_command[@]}"
+exec "${compose_command[@]}"
