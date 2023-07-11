@@ -1,3 +1,3 @@
 #!/bin/bash
 
-`./runtime.sh` run -ti --rm openqa-cli bash
+$(./runtime.sh) run -ti --rm openqa-cli bash

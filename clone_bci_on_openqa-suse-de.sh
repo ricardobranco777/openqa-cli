@@ -17,6 +17,4 @@ bci_tests_repo=$2
 bci_tests_branch=$3
 
 
-./run_clone_job.sh "$source" "$dest" "$parent_id" "" ""\
-BCI_TESTS_REPO="$bci_tests_repo" BCI_TESTS_BRANCH="$bci_tests_branch"
-
+./run_clone_job.sh "$source" "$dest" "$parent_id" "" BCI_TESTS_REPO="$bci_tests_repo" BCI_TESTS_BRANCH="$bci_tests_branch"
