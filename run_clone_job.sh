@@ -34,6 +34,8 @@ for opt; do
   [[ $opt =~ ^- ]] && extra_opts+=("$opt")
 done
 
+[[ ! $git_repo =~ \.git$ ]] && git_repo="${git_repo}.git"
+
 # Remove url from parent_id
 if ! [[ $parent_id =~ ^[0-9]+$ ]]; then
   parent_id="${parent_id%%#*}" # Strip everything after '#' in https://openqa.suse.de/tests/11549040#settings
