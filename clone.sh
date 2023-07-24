@@ -23,4 +23,6 @@ job="${url##*/}"
 source="$host"
 dest="$host"
 
+cd "$(dirname "${BASH_SOURCE[0]}")"
+
 ./run_clone_job.sh "$source" "$dest" "$job" "$repo" "$2" "${@:4}"

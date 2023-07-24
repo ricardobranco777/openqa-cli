@@ -13,6 +13,7 @@ if [ "$#" -lt 5 ]; then
   exit 1
 fi
 
+cd "$(dirname "${BASH_SOURCE[0]}")"
 make build &>/dev/null
 runtime=$(./runtime.sh)
 
