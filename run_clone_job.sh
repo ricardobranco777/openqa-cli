@@ -30,6 +30,11 @@ git_repo="$4"
 branch="$5"
 shift 5
 
+if ! git ls-remote --exit-code "$git_repo" "$branch" >/dev/null ; then
+        echo "ERROR: $git_repo doesn't have branch $branch"
+        exit 1
+fi
+
 extra_opts=()
 for opt; do
   [[ $opt =~ ^- ]] && extra_opts+=("$opt")
