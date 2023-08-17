@@ -16,6 +16,6 @@ parent_id="$1"
 bci_tests_repo="$2"
 bci_tests_branch="$3"
 
-cd "$(dirname "${BASH_SOURCE[0]}")"
+cd "$(dirname "${BASH_SOURCE[0]}")" || exit 1
 
 ./run_clone_job.sh "$source" "$dest" "$parent_id" "" BCI_TESTS_REPO="$bci_tests_repo" BCI_TESTS_BRANCH="$bci_tests_branch"
