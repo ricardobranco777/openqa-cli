@@ -22,14 +22,6 @@ key = <YOUR_KEY>
 secret = <YOUR_SECRET>
 ```
 
-## How to build the container
-
-To build the container, run the following command:
-
-```
-make build
-```
-
 ## How to use the scripts
 
 ### run_clone_job
