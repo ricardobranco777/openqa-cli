@@ -61,6 +61,10 @@ compose_command+=(CASEDIR="$git_repo#$branch")
 compose_command+=(TEST="${user}_${branch}")
 compose_command+=(_GROUP=0)
 compose_command+=(RETRY=0)
+# Disable PUBLISH_HDD_1 if not set
+if [[ " $* " =~ (^| )PUBLISH_HDD_1= ]] ; then
+  compose_command+=(PUBLISH_HDD_1=)
+fi
 #compose_command+=(_SKIP_POST_FAIL_HOOKS=1)
 
 for arg; do
