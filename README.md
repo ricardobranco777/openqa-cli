@@ -4,8 +4,7 @@ This repository contains scripts for cloning jobs in OpenQA.
 
 ## Prerequisites
 
-- `make`
-- Podman or docker as container runtime
+- podman
 - client.conf
 
 ### client.conf
