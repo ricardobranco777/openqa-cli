@@ -15,9 +15,8 @@ fi
 
 cd "$(dirname "${BASH_SOURCE[0]}")"
 make build &>/dev/null
-runtime=$(./runtime.sh)
 
-compose_command=("$runtime" run -ti --rm openqa-cli /usr/share/openqa/script/clone_job.pl)
+compose_command=(podman run -ti --rm openqa-cli /usr/share/openqa/script/clone_job.pl)
 
 if [[ $1 =~ ^- ]] ; then
   exec "${compose_command[@]}" "$@"
