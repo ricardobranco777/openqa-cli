@@ -14,7 +14,6 @@ if [ "$#" -lt 5 ]; then
 fi
 
 cd "$(dirname "${BASH_SOURCE[0]}")"
-make build &>/dev/null
 
 compose_command=(podman run -ti --rm openqa-cli /usr/share/openqa/script/clone_job.pl)
 
