@@ -8,4 +8,3 @@ RUN source /etc/os-release && \
 	rm -rf /var/cache
 RUN git clone --depth=1 https://github.com/os-autoinst/scripts.git
 RUN mkdir /etc/openqa
-COPY client.conf /etc/openqa/client.conf
