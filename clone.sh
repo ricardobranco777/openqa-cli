@@ -19,6 +19,8 @@ url="${3%%#*}"
 host="${url%%/t*}"
 # Bash's basename
 job="${url##*/}"
+# Support https://openqa.suse.de/t13892578 URL
+job="${job#t*}"
 
 source="$host"
 dest="$host"
