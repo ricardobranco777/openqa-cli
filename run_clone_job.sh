@@ -18,7 +18,7 @@ cd "$(dirname "${BASH_SOURCE[0]}")"
 compose_command=(podman run --rm -it -v $PWD/client.conf:/etc/openqa/client.conf:ro,z openqa-cli /usr/share/openqa/script/clone_job.pl)
 
 if [[ $1 =~ ^- ]] ; then
-  exec "${compose_command[@]}" "$@"
+	exec "${compose_command[@]}" "$@"
 fi
 
 source="$1"
@@ -35,15 +35,15 @@ fi
 
 extra_opts=()
 for opt; do
-  [[ $opt =~ ^- ]] && extra_opts+=("$opt")
+	[[ $opt =~ ^- ]] && extra_opts+=("$opt")
 done
 
 [[ ! $git_repo =~ \.git$ ]] && git_repo="${git_repo}.git"
 
 # Remove url from parent_id
 if ! [[ $parent_id =~ ^[0-9]+$ ]]; then
-  parent_id="${parent_id%%#*}" # Strip everything after '#' in https://openqa.suse.de/tests/11549040#settings
-  parent_id="${parent_id##*/}" # Bash's basename
+	parent_id="${parent_id%%#*}" # Strip everything after '#' in https://openqa.suse.de/tests/11549040#settings
+	parent_id="${parent_id##*/}" # Bash's basename
 fi
 
 # Extract the user from the git repository URL
@@ -52,7 +52,7 @@ user=$(echo "$git_repo" | awk -F'[:/]' '{print $(NF-1)}')
 compose_command+=(--host "$dest" --from "$source")
 compose_command+=(--skip-chained-deps --skip-download)
 for opt in "${extra_opts[@]}"; do
-  compose_command+=("$opt")
+	compose_command+=("$opt")
 done
 
 compose_command+=("$parent_id")
@@ -62,15 +62,14 @@ compose_command+=(_GROUP=0)
 compose_command+=(RETRY=0)
 # Disable PUBLISH_HDD_1 if not set
 if [[ " $* " =~ (^| )PUBLISH_HDD_1= ]] ; then
-  compose_command+=(PUBLISH_HDD_1=)
+	compose_command+=(PUBLISH_HDD_1=)
 fi
 #compose_command+=(_SKIP_POST_FAIL_HOOKS=1)
 
 for arg; do
-  compose_command+=("$arg")
+	compose_command+=("$arg")
 done
 
-full_command=$(IFS=' ' && echo "${compose_command[*]}")
-echo "Full command: $full_command"
+echo "Running ${full_command[@]}"
 
 exec "${compose_command[@]}"
