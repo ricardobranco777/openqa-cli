@@ -1,4 +1,4 @@
-FROM opensuse/leap
+FROM registry.opensuse.org/opensuse/leap
 
 RUN source /etc/os-release && \
 	zypper addrepo https://download.opensuse.org/repositories/devel:/openQA:/Leap:/$VERSION_ID/openSUSE_Leap_$VERSION_ID devel-openQA-Leap && \
