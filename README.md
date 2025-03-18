@@ -2,6 +2,8 @@
 
 This repository contains scripts for cloning jobs in OpenQA.
 
+Image available at `ghcr.io/ricardobranco777/openqa-cli`
+
 ## Prerequisites
 
 - podman

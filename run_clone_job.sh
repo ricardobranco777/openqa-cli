@@ -15,7 +15,7 @@ fi
 
 cd "$(dirname "${BASH_SOURCE[0]}")"
 
-compose_command=(podman run --rm -it -v $PWD/client.conf:/etc/openqa/client.conf:ro,z openqa-cli /usr/share/openqa/script/clone_job.pl)
+compose_command=(podman run --rm -it -v $HOME/client.conf:/etc/openqa/client.conf:ro,z ghcr.io/ricardobranco777/openqa-cli /usr/share/openqa/script/clone_job.pl)
 
 if [[ $1 =~ ^- ]] ; then
 	exec "${compose_command[@]}" "$@"
