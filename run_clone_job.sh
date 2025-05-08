@@ -70,6 +70,6 @@ for arg; do
 	compose_command+=("$arg")
 done
 
-echo "Running ${full_command[@]}"
+echo "Running ${compose_command[@]}"
 
 exec "${compose_command[@]}"
