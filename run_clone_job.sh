@@ -49,17 +49,24 @@ fi
 # Extract the user from the git repository URL
 user=$(echo "$git_repo" | awk -F'[:/]' '{print $(NF-1)}')
 
-compose_command+=(--host "$dest" --from "$source")
-compose_command+=(--skip-chained-deps --skip-download)
+compose_command+=(
+	--from "$source"
+	--host "$dest"
+	--skip-chained-deps
+	--skip-checks
+	--skip-download
+)
 for opt in "${extra_opts[@]}"; do
 	compose_command+=("$opt")
 done
 
 compose_command+=("$parent_id")
-compose_command+=(CASEDIR="$git_repo#$branch")
-compose_command+=(TEST="${user}_${branch}")
-compose_command+=(_GROUP=0)
-compose_command+=(RETRY=0)
+compose_command+=(
+	CASEDIR="$git_repo#$branch"
+	TEST="${user}_${branch}"
+	_GROUP=0
+	RETRY=0
+)
 # Disable PUBLISH_HDD_1 if not set
 if [[ " $* " =~ (^| )PUBLISH_HDD_1= ]] ; then
 	compose_command+=(PUBLISH_HDD_1=)
