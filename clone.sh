@@ -17,10 +17,17 @@ repo="$1"
 url="${3%%#*}"
 # Get host with scheme stripping everything after "/t"
 host="${url%%/t*}"
-# Bash's basename
-job="${url##*/}"
-# Support https://openqa.suse.de/t13892578 URL
-job="${job#t*}"
+
+# If URL doesn't end with a number it's a generic URL, get ID
+if ! [[ $url =~ /t?[0-9]+$ ]] ; then
+	params="${url##*\?}"
+	job="$(curl -sL "$host/api/v1/jobs/overview/?$params" | jq '.[0].id')"
+else
+	# Bash's basename
+	job="${url##*/}"
+	# Support https://openqa.suse.de/t13892578 URL
+	job="${job#t*}"
+fi
 
 source="$host"
 dest="$host"
